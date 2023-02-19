@@ -4,17 +4,20 @@ import { Contacto } from '../model/contacto';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogoConfirmacionComponent } from '../dialogo-confirmacion/dialogo-confirmacion.component';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-listar-contactos',
   templateUrl: './listar-contactos.component.html',
   styleUrls: ['./listar-contactos.component.css'],
   providers: [ContactosServiceService]
+  
 })
 
 export class ListarContactosComponent implements OnInit{
   public contactos: any;
 
-  constructor(private contactosService: ContactosServiceService, private dialogo: MatDialog, private snackBar: MatSnackBar) { }
+  constructor(private router: Router, private contactosService: ContactosServiceService, private dialogo: MatDialog, private snackBar: MatSnackBar) { }
   
   eliminarContacto(contacto: Contacto) {
     console.log(contacto);
@@ -39,18 +42,27 @@ export class ListarContactosComponent implements OnInit{
       })
   } 
   ngOnInit() {
+
     this.getContactos();
    
   }
 
   getContactos(): void {
 
-    this.contactosService.getContactos().subscribe(
-      (result:any)=>{
-       
+    
+
+    this.contactosService.getContactos().subscribe({
+      next: (result: any) => {
         this.contactos = result;
-       
-      });
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.router.navigate(['/login']);
+      }
+    });
+    
+
+
   }
 
 

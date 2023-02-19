@@ -3,10 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListarContactosComponent } from './listar-contactos/listar-contactos.component';
 import { AgregarContactoComponent } from './agregar-contacto/agregar-contacto.component';
 import { EditarContactoComponent } from './editar-contacto/editar-contacto.component';
+import { LoginComponent } from './login/login.component';
+
 const routes: Routes = [
   { path: "contactos", component: ListarContactosComponent },
   { path: "contactos/agregar", component: AgregarContactoComponent },
   { path: "contactos/editar/:id", component: EditarContactoComponent },
+  { path: "login", component: LoginComponent},
   { path: "", redirectTo: "/contactos", pathMatch: "full" },// Cuando es la raÃ­z
   { path: "**", redirectTo: "/contactos" }
 
